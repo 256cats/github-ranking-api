@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: ranking_backend
+    build:
+      context: ./backend
+      args:
+        NODE_ENV: development
+    init: true
+    command: bash -c "wait-for-it -s -t 360 postgres:5432 -- npm run start:dev"
+    env_file:
+      - ./backend/.env
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./backend/src:/home/node/app/src
+      - ./backend/tests:/home/node/app/tests
+      - ./backend/prisma:/home/node/app/prisma
+      - ./Github-Ranking/Data:/ranking-data
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    init: true
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres-db:/var/lib/postgresql/data
+      - ./data/seed/sql:/docker-entrypoint-initdb.d # will import all data from dump_short.sql.gz
+    environment:
+      - POSTGRES_PASSWORD=12345
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    command:
+      - "postgres"

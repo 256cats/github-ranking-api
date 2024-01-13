@@ -1,0 +1,3 @@
+[submodule "Github-Ranking"]
+	path = Github-Ranking
+	url = git@github.com:EvanLi/Github-Ranking.git

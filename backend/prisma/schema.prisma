@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ranking {
+  id          Int      @id @default(autoincrement())
+  rank        Int
+  repoName    String
+  stars       Int
+  forks       Int
+  languageId  String
+  repoUrl     String
+  username    String
+  issues      Int
+  lastCommit  DateTime
+  description String
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp(0)
+  rankDate    DateTime @db.Date()
+  sourceId    String
+  source      Source   @relation(fields: [sourceId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+
+  @@unique(fields: [rankDate, rank, languageId, sourceId])
+}
+
+model Source {
+  id          String    @id @unique @db.VarChar(50)
+  description String
+  rankings    Ranking[]
+}
