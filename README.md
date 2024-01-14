@@ -1,7 +1,9 @@
 
 ## Project Synopsis
 
-Welcome to the GitHub Ranking API. We provide a Docker-compose stack to facilitate streamlined development and testing.
+Welcome to the GitHub Ranking API. The app is containerized with support for environment variables, ready for deployment to any container registry and execution in the cloud (e.g. AWS ECS / EKS / Kubernetes).
+
+We provide a Docker-compose stack to facilitate streamlined development and testing.
 
 ## Technologies Overview
 
