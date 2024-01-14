@@ -15,7 +15,7 @@ services:
       - "127.0.0.1:3000:3000"
     volumes:
       - ./backend/src:/home/node/app/src
-      - ./backend/tests:/home/node/app/tests
+      - ./backend/test:/home/node/app/test
       - ./backend/prisma:/home/node/app/prisma
       - ./Github-Ranking/Data:/ranking-data
     depends_on:
